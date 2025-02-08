@@ -1,13 +1,16 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { LinearGradient } from "expo-linear-gradient";
+import Animated, { FadeIn, FadeInDown, FadeOut } from "react-native-reanimated";
+import { useNavigation } from '@react-navigation/native';
 
-export default function Login() {
+export default function Login({navigation}) {
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
@@ -21,12 +24,32 @@ export default function Login() {
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}
       >
-        <View style={styles.containertext}>
+        <Animated.View
+          // entering={FadeInDown.delay(200).springify()}
+          style={styles.containertext}
+        >
           <Text style={styles.text}>
             Best <Text style={{ color: "red" }}>WorkOuts</Text>
           </Text>
           <Text style={styles.text}>For You</Text>
-        </View>
+        </Animated.View>
+        <Animated.View 
+        // entering={FadeInDown.delay(300).springify()}
+        >
+          <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+            style={{
+              backgroundColor: "red",
+              borderRadius: 8,
+              marginHorizontal: 20,
+              padding: 10,
+              alignItems: "center",
+              marginTop: 20,
+            }}
+          >
+            <Text style={styles.buttom}>Get Started</Text>
+          </TouchableOpacity>
+        </Animated.View>
       </LinearGradient>
     </View>
   );
@@ -54,6 +77,11 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: hp(5),
+    fontWeight: "bold",
+  },
+  buttom: {
+    color: "white",
+    fontSize: hp(2.5),
     fontWeight: "bold",
   },
 });
